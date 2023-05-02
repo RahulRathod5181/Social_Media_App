@@ -1,7 +1,10 @@
 const express = require("express");
 const {connect} = require("./db")
 const app = express();
+const { userRouter} = require("./Routes/user.routes")
 require("dotenv").config();
+app.use(express.json())
+app.use("/users",userRouter);
 
 
 
