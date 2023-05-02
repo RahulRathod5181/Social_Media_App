@@ -23,11 +23,19 @@ postRouter.post("/addpost",async(req,res)=>{
 
 postRouter.get("/",async(req,res)=>{
     const {device} = req.query
-    console.log(req.body)
+    // console.log(device)
+    let query = {}
+    
+
     try {
-        const post = await PostModel.find({$and:[{postID:req.body.postID},device]});
-        
-        res.send(post)
+        const post = await PostModel.find({postID:req.body.postID});
+        if(device){
+            query.device = device
+            const post = await PostModel.find({$and:[{postID:req.body.postID},query]});
+            res.send(post)
+        }else{
+            res.send(post)
+        }
     } catch (error) {
         res.status(400).send({msg:error.message})
     }
