@@ -1,11 +1,16 @@
 const express = require("express");
 const {connect} = require("./db")
 const app = express();
-const { userRouter} = require("./Routes/user.routes")
+const { userRouter} = require("./Routes/user.routes");
+const { postRouter } = require("./Routes/post.routes");
+const { auth } = require("./Middleware/Auth.middleware");
 require("dotenv").config();
 app.use(express.json())
 app.use("/users",userRouter);
 
+
+app.use(auth)
+app.use("/post",postRouter);
 
 
 
