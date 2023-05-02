@@ -6,11 +6,13 @@ const { postRouter } = require("./Routes/post.routes");
 const { auth } = require("./Middleware/Auth.middleware");
 require("dotenv").config();
 app.use(express.json())
+
+
 app.use("/users",userRouter);
 
 
-app.use(auth)
-app.use("/post",postRouter);
+
+app.use("/post",auth,postRouter);
 
 
 
